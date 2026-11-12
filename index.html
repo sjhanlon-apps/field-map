@@ -7,10 +7,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Field Map">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
 <title>Field Map</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111'/%3E%3Cpath d='M32 14c-8 0-14 6-14 14 0 10 14 22 14 22s14-12 14-22c0-8-6-14-14-14z' fill='%23ff4d5e'/%3E%3Ccircle cx='32' cy='28' r='5' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23111'/%3E%3Cpath d='M32 14c-8 0-14 6-14 14 0 10 14 22 14 22s14-12 14-22c0-8-6-14-14-14z' fill='%23ff4d5e'/%3E%3Ccircle cx='32' cy='28' r='5' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
@@ -29,6 +31,11 @@
   --tile-filter:invert(1) hue-rotate(180deg) brightness(.85) contrast(.9) saturate(.6);
   color-scheme:dark}}
 [hidden]{display:none!important}
+button,a,.cat,.row,.fab{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.list,.picker{overscroll-behavior:contain}
+.me{width:18px;height:18px;border-radius:50%;background:#1a73e8;border:3px solid #fff;box-shadow:0 0 0 0 rgba(26,115,232,.5);transform:translate(-50%,-50%);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(26,115,232,.45)}70%{box-shadow:0 0 0 16px rgba(26,115,232,0)}100%{box-shadow:0 0 0 0 rgba(26,115,232,0)}}
+.fab.active{color:#1a73e8}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--f);-webkit-font-smoothing:antialiased;overflow:hidden;-webkit-tap-highlight-color:transparent}
@@ -64,7 +71,8 @@ button{font-family:inherit}
 .cat:focus-visible,.citypill:focus-visible,.fab:focus-visible,.row:focus-visible,.btn:focus-visible,.handle:focus-visible,.citycard:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 /* floating controls */
-.fabs{position:fixed;z-index:600;right:max(16px,calc(env(safe-area-inset-right,0px) + 16px));display:flex;flex-direction:column;gap:10px;transition:bottom .25s ease}
+.fabs{position:fixed;z-index:600;right:max(16px,calc(env(safe-area-inset-right,0px) + 16px));display:flex;flex-direction:column;gap:10px;transition:bottom .25s ease,opacity .2s}
+body.sheet-max .fabs{opacity:0;pointer-events:none}
 .fab{width:44px;height:44px;border-radius:50%;border:0;background:var(--bg);color:var(--ink);box-shadow:var(--shadow);display:grid;place-items:center;cursor:pointer;font-size:20px;font-weight:600}
 .fab svg{width:20px;height:20px}
 
@@ -163,6 +171,7 @@ button{font-family:inherit}
 </header>
 
 <div class="fabs" id="fabs">
+  <button class="fab" id="meBtn" aria-label="Show my location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
   <button class="fab" id="homeBtn" aria-label="Go to home base"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></button>
   <button class="fab" id="fitBtn" aria-label="Show all"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
   <button class="fab" id="zin" aria-label="Zoom in">+</button>
@@ -288,7 +297,7 @@ function select(id){
   map.flyTo(map.unproject(c,z),z,{duration:.45}); list.scrollTop=0;
 }
 const sizes=["min","mid","max"];
-function setSize(s){sheet.dataset.size=s;store.set("fm-size",s);setTimeout(()=>{$("fabs").style.bottom=(botH()+14)+"px";map.invalidateSize();},290);}
+function setSize(s){sheet.dataset.size=s;document.body.classList.toggle("sheet-max",s==="max"&&innerWidth<900);store.set("fm-size",s);setTimeout(()=>{$("fabs").style.bottom=(botH()+14)+"px";map.invalidateSize();},290);}
 let swiped=false,ty=null;
 $("handle").addEventListener("click",()=>{if(swiped){swiped=false;return;}const s=sheet.dataset.size;setSize(s==="mid"?"max":s==="max"?"min":"mid");});
 $("handle").addEventListener("touchstart",e=>{ty=e.touches[0].clientY},{passive:true});
@@ -297,6 +306,18 @@ $("handle").addEventListener("touchend",e=>{if(ty==null)return;const dy=e.change
 $("zin").onclick=()=>map.zoomIn(); $("zout").onclick=()=>map.zoomOut();
 $("homeBtn").onclick=()=>HOME?select("home"):map.setView(C.center,C.zoom||14);
 $("fitBtn").onclick=fit;
+let meMarker=null, meLL=null, watching=false;
+function startLocate(center){
+  if(!navigator.geolocation){$("sheetSub").textContent="Location isn't available on this device";return;}
+  if(!watching){watching=true;navigator.geolocation.watchPosition(pos=>{
+      meLL=[pos.coords.latitude,pos.coords.longitude];
+      if(!meMarker) meMarker=L.marker(meLL,{icon:L.divIcon({className:"",iconSize:[0,0],html:'<div class="me"></div>'}),zIndexOffset:3000,interactive:false}).addTo(map); else meMarker.setLatLng(meLL);
+      $("meBtn").classList.add("active");
+      if(center){center=false;map.flyTo(meLL,Math.max(map.getZoom(),16),{duration:.5});}
+    },()=>{watching=false;$("meBtn").classList.remove("active");},{enableHighAccuracy:true,maximumAge:10000,timeout:15000});}
+  else if(meLL) map.flyTo(meLL,Math.max(map.getZoom(),16),{duration:.5});
+}
+$("meBtn").onclick=()=>startLocate(true);
 
 function openPicker(canClose){$("closePicker").hidden=!canClose;$("picker").hidden=false;}
 $("cityCards").innerHTML=Object.keys(CITIES).map(k=>{const c=CITIES[k],n=(c.places||[]).length;
