@@ -110,6 +110,7 @@ button{font-family:inherit}
 .btn.ghost{border:1.5px solid var(--ink);color:var(--ink);background:transparent}
 .btn svg{width:18px;height:18px}
 .close{all:unset;cursor:pointer;float:right;width:32px;height:32px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:16px;margin-left:8px}
+.ghdr{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:16px 4px 4px}
 .empty{padding:28px 8px;text-align:center;color:var(--muted);font-size:15px;line-height:1.55}
 .empty b{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}
 
@@ -252,11 +253,14 @@ function renderList(){
   $("sheetTitle").textContent=P.length?`${v.length} ${filter==="all"?"spots":CATS[filter].label.toLowerCase()} in ${C.short||C.label}`:C.label;
   $("sheetSub").textContent=P.length?(HOME?`Nearest first from ${HOME.name}`:"Nearest first"):(C.dates||"");
   if(!P.length){list.innerHTML=`<div class="empty"><b>${esc(C.flag||"")} ${esc(C.label)} is coming soon</b>Ask Claude to add spots and they'll appear here automatically.</div>`;return;}
-  list.innerHTML=detail()+v.map(p=>{const r=ratingBits(p.rating),t=tier(p);return `<button class="row${p.id===selected?" on":""}" data-id="${p.id}">
+  const GO=["Local & cheap","Nicer"]; const grouped=v.some(p=>p.group);
+  if(grouped) v.sort((a,b)=>((GO.indexOf(a.group)+99)%99-(GO.indexOf(b.group)+99)%99)||a.d-b.d);
+  let lastG=null;
+  list.innerHTML=detail()+v.map(p=>{let hdr="";if(grouped&&p.group!==lastG){lastG=p.group;hdr=`<div class="ghdr">${esc(p.group||"Other")}</div>`;}return hdr+(()=>{const r=ratingBits(p.rating),t=tier(p);return `<button class="row${p.id===selected?" on":""}" data-id="${p.id}">
     <span class="tile">${CATS[p.cat]?.ic||"📍"}</span>
     <span style="min-width:0"><div class="nm">${esc(p.name)}</div>
     <div class="sub"><b>★ ${esc(r.s)}</b>${t?`<span class="dot"></span><b>${esc(t)}</b>`:""}<span class="dot"></span><span>${esc(priceText(p)||p.note)}</span></div></span>
-    <span class="ds">${shortD(p.d)}<small>${travel(p.d).replace(" walk","").replace("~","")}</small></span></button>`}).join("");
+    <span class="ds">${shortD(p.d)}<small>${travel(p.d).replace(" walk","").replace("~","")}</small></span></button>`})()}).join("");
 }
 list.addEventListener("click",e=>{if(e.target.closest("[data-close]")){selected=null;apply();return;}const r=e.target.closest(".row");if(r)select(+r.dataset.id);});
 

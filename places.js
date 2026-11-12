@@ -331,16 +331,6 @@ window.MAP_DATA = {
     },
     {
      "cat": "spa",
-     "name": "La Maison de L'Apothiquaire",
-     "lat": 10.7821523,
-     "lng": 106.6843952,
-     "pid": "ChIJ298jljovdTERWZQp1RZZogs",
-     "rating": "4.8 · 333 reviews",
-     "note": "French villa, steam and sauna, half-day packages with lunch.",
-     "price": "💲💲💲💲 half-day package ~€125 (~A$200) incl. lunch + pickup"
-    },
-    {
-     "cat": "spa",
      "name": "Aman Spa & Wellness",
      "lat": 10.7737303,
      "lng": 106.6982701,
@@ -367,7 +357,8 @@ window.MAP_DATA = {
      "pid": "ChIJLfHQTlkvdTERRFLsOzNchqk",
      "rating": "4.9 · 1.3K reviews",
      "note": "Body massage and hair spa combos. Close by.",
-     "price": "💲💲 60-min massage ~350–500k VND (~A$20–28)"
+     "price": "💲💲 60-min massage ~350–500k VND (~A$20–28)",
+     "group": "Nicer"
     },
     {
      "cat": "massage",
@@ -377,7 +368,8 @@ window.MAP_DATA = {
      "pid": "ChIJhw74W8AvdTERrqCIIbm4tv4",
      "rating": "4.9 · 579 reviews",
      "note": "Full body, hair spa, facial.",
-     "price": "💲💲 60-min massage ~400–600k VND (~A$23–34)"
+     "price": "💲💲 60-min massage ~400–600k VND (~A$23–34)",
+     "group": "Nicer"
     },
     {
      "cat": "massage",
@@ -387,7 +379,8 @@ window.MAP_DATA = {
      "pid": "ChIJKfgRV5ovdTERTKrurm_j2C0",
      "rating": "4.9 · 1.1K reviews",
      "note": "Body and foot care. Friendly owners.",
-     "price": "💲💲 60-min massage ~300–450k VND (~A$17–26)"
+     "price": "💲💲 60-min massage ~300–450k VND (~A$17–26)",
+     "group": "Nicer"
     },
     {
      "cat": "massage",
@@ -397,7 +390,8 @@ window.MAP_DATA = {
      "pid": "ChIJdd_8-GgvdTERrzhTtANxplM",
      "rating": "4.9 · 876 reviews",
      "note": "Body massage and facials.",
-     "price": "💲💲 60-min massage ~400–600k VND (~A$23–34)"
+     "price": "💲💲 60-min massage ~400–600k VND (~A$23–34)",
+     "group": "Nicer"
     },
     {
      "cat": "eat",
@@ -498,6 +492,50 @@ window.MAP_DATA = {
      "rating": "4.2 · 1.3K reviews",
      "note": "International hospital in Thủ Đức.",
      "price": "🏥 GP consult ~1–1.5M VND (~A$57–85)"
+    },
+    {
+     "cat": "massage",
+     "group": "Local & cheap",
+     "name": "Ánh Dương blind massage",
+     "lat": 10.7701345,
+     "lng": 106.669995,
+     "pid": "ChIJdyis4d0udTER0RcsFnFlKtA",
+     "rating": "4.3 · 267 reviews",
+     "note": "Classic local blind massage. Unfussy rooms, strong hands. 90 min for under US$10.",
+     "price": "💲💲 60–90 min ~150–250k VND (~A$9–14)"
+    },
+    {
+     "cat": "massage",
+     "group": "Local & cheap",
+     "name": "Hoàng Triều blind massage",
+     "lat": 10.7778988,
+     "lng": 106.6711249,
+     "pid": "ChIJG-XE9BAvdTEREPnSJ3OVnMY",
+     "rating": "4.5 · 120 reviews",
+     "note": "Blind therapists, private rooms, friendly front desk. Locals' spot.",
+     "price": "💲💲 60 min ~150–250k VND (~A$9–14)"
+    },
+    {
+     "cat": "massage",
+     "group": "Local & cheap",
+     "name": "Quốc Phương blind massage",
+     "lat": 10.7890746,
+     "lng": 106.6796975,
+     "pid": "ChIJc7aACaYvdTERBRrm3mRvUqo",
+     "rating": "4.4 · 238 reviews",
+     "note": "Full body with oil or hot stones 220k incl. tip, posted on the menu.",
+     "price": "💲💲 full body 220k VND incl. tip (~A$13)"
+    },
+    {
+     "cat": "massage",
+     "group": "Local & cheap",
+     "name": "Lamint Spa Đông Y Q3",
+     "lat": 10.778729,
+     "lng": 106.6884002,
+     "pid": "ChIJ_4dOC-AvdTERUlEC_06yleQ",
+     "rating": "4.9 · 299 reviews",
+     "note": "Traditional Vietnamese spa in an old house full of plants. Reviewers say best value in the area.",
+     "price": "💲💲 60 min ~200–350k VND (~A$11–20)"
     }
    ],
    "short": "HCMC",
