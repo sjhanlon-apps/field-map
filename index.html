@@ -137,6 +137,18 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
 .citycard span{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
 .close-picker{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:18px;margin-bottom:18px}
 
+/* money */
+.moneycard .hero{background:linear-gradient(135deg,#0f9d58,#0b6e4f)}
+.money{position:fixed;inset:0;z-index:1100;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;
+  padding:calc(env(safe-area-inset-top,0px) + 20px) max(20px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 32px) max(20px,env(safe-area-inset-left,0px))}
+.money h1{margin:0 0 4px;font-size:30px;font-weight:800;letter-spacing:-.02em}
+.money .lead{margin:0 0 18px;color:var(--muted);font-size:14.5px}
+.mbox{border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:12px}
+.mbox h2{margin:0 0 8px;font-size:16px;font-weight:800}
+.mbox ul{margin:0;padding-left:18px}.mbox li{margin:5px 0;font-size:14.5px;line-height:1.4}
+.mbox.key{background:var(--ink);color:var(--bg);border:0}
+.mbox.key li{color:var(--bg)}
+
 @media (min-width:900px){
   .sheet{left:24px;right:auto;bottom:24px;top:auto;width:420px;border-radius:24px}
   .sheet[data-size="mid"],.sheet[data-size="max"]{height:min(calc(100% - 200px),720px)}
@@ -154,6 +166,43 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
     <h1>Where to?</h1>
     <p class="lead">Pick your city. Switch any time from the top bar.</p>
     <div id="cityCards"></div>
+    <button class="citycard moneycard" id="moneyCard"><div class="hero"><span class="fl">💸</span><span class="count">Golden rules</span></div><div class="body"><b>Money</b><span>Cash, cards &amp; ATMs for both countries</span></div></button>
+  </div>
+</div>
+
+<div class="money" id="money" hidden>
+  <div class="picker-in">
+    <button class="close-picker" id="closeMoney" aria-label="Close">✕</button>
+    <h1>💸 Money</h1>
+    <p class="lead">Golden rules. Revolut for everything, CBA only as backup.</p>
+    <div class="mbox key"><h2>⚡ The 4 rules</h2><ul>
+      <li><b>Tap Revolut</b> everywhere you can.</li>
+      <li>Always pick <b>VND / THB</b>, never AUD, at ATMs and card machines.</li>
+      <li>Convert in Revolut <b>Mon–Fri</b> (1% fee on weekends).</li>
+      <li>Withdraw <b>big and rarely</b>, with your <b>Revolut card</b>.</li>
+    </ul></div>
+    <div class="mbox"><h2>💳 Revolut limits (Standard)</h2><ul>
+      <li>Free ATM: <b>A$350 / 5 withdrawals a month</b>, fee after.</li>
+      <li>Free FX: <b>A$2,000 a month</b> on weekdays.</li>
+      <li>Going over? Upgrade to Premium for the trip, cancel at home.</li>
+    </ul></div>
+    <div class="mbox"><h2>🇻🇳 Vietnam</h2><ul>
+      <li>ATM: <b>VPBank</b>. No machine fee, up to 10M VND (~A$570).</li>
+      <li>Avoid TPBank (~3.3%) and others (~50k VND / ~A$3).</li>
+      <li>Cash for street food, local massage, barber, tips.</li>
+      <li>AUD notes → gold shop in D1 (Hà Tâm, Lê Thánh Tôn) for the best rate.</li>
+      <li>Arrival: ~2M VND (~A$115) at SGN, then VPBank in town.</li>
+    </ul></div>
+    <div class="mbox"><h2>🇹🇭 Thailand</h2><ul>
+      <li>Every ATM charges <b>220–250 THB (~A$10–11)</b>.</li>
+      <li>So take out <b>20,000 THB (~A$900)</b> at a time.</li>
+      <li>AUD notes → <b>SuperRich</b> for top rates.</li>
+    </ul></div>
+    <div class="mbox"><h2>🎒 Backup</h2><ul>
+      <li>A$500 in crisp, unmarked notes.</li>
+      <li>CBA card in the bag for emergencies only (~3% fees).</li>
+      <li>Card gone? Freeze it in the Revolut app.</li>
+    </ul></div>
   </div>
 </div>
 
@@ -325,6 +374,8 @@ $("cityCards").innerHTML=Object.keys(CITIES).map(k=>{const c=CITIES[k],n=(c.plac
   <div class="body"><b>${esc(c.label)}</b><span>${esc(c.country||"")} · ${esc(c.dates||"")}</span><span>${esc(c.blurb||"")}</span></div></button>`}).join("");
 $("cityCards").addEventListener("click",e=>{const b=e.target.closest(".citycard");if(b)loadCity(b.dataset.k);});
 $("cityPill").onclick=()=>openPicker(true);
+$("moneyCard").onclick=()=>{$("money").hidden=false;$("money").scrollTop=0;};
+$("closeMoney").onclick=()=>{$("money").hidden=true;};
 $("closePicker").onclick=()=>{$("picker").hidden=true;};
 window.addEventListener("hashchange",()=>{const k=location.hash.slice(1);if(CITIES[k]&&k!==cityKey)loadCity(k);});
 
