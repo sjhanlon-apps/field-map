@@ -94,11 +94,11 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
 .handle::before{content:"";display:block;width:40px;height:5px;border-radius:5px;background:var(--line);margin:0 auto 12px}
 .handle h2{margin:0;font-size:16px;font-weight:700}
 .handle p{margin:3px 0 0;font-size:13px;color:var(--muted)}
-.list{overflow-y:auto;flex:1;min-height:0;padding:4px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px));-webkit-overflow-scrolling:touch}
-.row{all:unset;cursor:pointer;display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;width:100%;padding:12px 4px;border-bottom:1px solid var(--line)}
+.list{overflow-y:auto;overflow-x:hidden;touch-action:pan-y;flex:1;min-height:0;padding:4px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px));-webkit-overflow-scrolling:touch}
+.row{all:unset;cursor:pointer;display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:14px;align-items:center;width:100%;box-sizing:border-box;padding:12px 4px;border-bottom:1px solid var(--line)}
 .tile{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:var(--soft)}
-.row .nm{font-weight:700;font-size:15px;line-height:1.25;min-width:0}
-.row .sub{font-size:13px;color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.row .nm{overflow-wrap:anywhere;font-weight:700;font-size:15px;line-height:1.25;min-width:0}
+.row .sub{overflow-wrap:anywhere;font-size:13px;color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .row .sub b{color:var(--ink);font-weight:700}
 .row .ds{font-size:13px;font-weight:600;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .row .ds small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:2px}
@@ -123,12 +123,12 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
 .empty b{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}
 
 /* city picker */
-.picker{position:fixed;inset:0;z-index:1000;background:var(--bg);overflow-y:auto;
+.picker{position:fixed;inset:0;z-index:1000;background:var(--bg);overflow-y:auto;overflow-x:hidden;touch-action:pan-y;
   padding:calc(env(safe-area-inset-top,0px) + 40px) max(20px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 24px) max(20px,env(safe-area-inset-left,0px))}
 .picker-in{max-width:540px;margin:0 auto}
 .picker h1{margin:0;font-size:32px;font-weight:800;letter-spacing:-.02em}
 .picker .lead{margin:8px 0 24px;color:var(--muted);font-size:15px}
-.citycard{all:unset;cursor:pointer;display:block;width:100%;border-radius:22px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 18px rgba(0,0,0,.08);border:1px solid var(--line)}
+.citycard{all:unset;cursor:pointer;display:block;width:100%;box-sizing:border-box;border-radius:22px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 18px rgba(0,0,0,.08);border:1px solid var(--line)}
 .citycard .hero{height:118px;display:flex;align-items:flex-end;justify-content:space-between;padding:16px 18px;color:#fff;position:relative}
 .citycard .hero .fl{font-size:44px;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
 .citycard .hero .count{color:#fff!important;margin:0;font-size:12px;font-weight:700;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px}
@@ -139,7 +139,7 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
 
 /* money */
 .moneycard .hero{background:linear-gradient(135deg,#0f9d58,#0b6e4f)}
-.money{position:fixed;inset:0;z-index:1100;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;
+.money{position:fixed;inset:0;z-index:1100;background:var(--bg);overflow-y:auto;overflow-x:hidden;touch-action:pan-y;overscroll-behavior:contain;
   padding:calc(env(safe-area-inset-top,0px) + 20px) max(20px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 32px) max(20px,env(safe-area-inset-left,0px))}
 .money h1{margin:0 0 4px;font-size:30px;font-weight:800;letter-spacing:-.02em}
 .money .lead{margin:0 0 18px;color:var(--muted);font-size:14.5px}
