@@ -52,14 +52,15 @@ button{font-family:inherit}
 .citypill small{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .citypill .chev{margin-left:auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex:0 0 auto}
 .citypill .chev svg{width:14px;height:14px}
-.cats{display:flex;gap:26px;overflow-x:auto;scrollbar-width:none;padding:14px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));-webkit-overflow-scrolling:touch}
-.cats::-webkit-scrollbar{display:none}
-.cat{all:unset;cursor:pointer;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:10px;border-bottom:2px solid transparent;color:var(--muted);opacity:.85}
-.cat .ic{font-size:22px;line-height:1;filter:grayscale(.2)}
-.cat span{font-size:12px;font-weight:600;white-space:nowrap}
-.cat small{font-size:10px;font-weight:600;color:var(--muted);margin-top:-4px;font-variant-numeric:tabular-nums}
-.cat[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink);opacity:1}
-.cat[aria-pressed="true"] .ic{filter:none}
+.cats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px 2px;padding:10px max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px))}
+.cat{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px 7px;border-radius:12px;color:var(--muted);position:relative;min-width:0}
+.cat .ic{font-size:20px;line-height:1;filter:grayscale(.25);opacity:.9}
+.cat span{font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.cat small{position:absolute;top:2px;right:calc(50% - 22px);font-size:9.5px;font-weight:700;min-width:15px;height:15px;padding:0 3px;border-radius:999px;
+  background:var(--soft);color:var(--muted);display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.cat[aria-pressed="true"]{color:var(--sel-ink);background:var(--sel)}
+.cat[aria-pressed="true"] .ic{filter:none;opacity:1}
+.cat[aria-pressed="true"] small{background:var(--accent);color:#fff}
 .cat:focus-visible,.citypill:focus-visible,.fab:focus-visible,.row:focus-visible,.btn:focus-visible,.handle:focus-visible,.citycard:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 /* floating controls */
@@ -132,6 +133,7 @@ button{font-family:inherit}
   .sheet[data-size="mid"],.sheet[data-size="max"]{height:min(calc(100% - 200px),720px)}
   .top{left:24px;right:auto;top:16px;width:420px;border-radius:24px;padding-top:12px}
 }
+@media (pointer:coarse){#zin,#zout{display:none}}
 @media (prefers-reduced-motion:reduce){.sheet,.fabs,.mk{transition:none}}
 </style>
 </head>
@@ -220,8 +222,7 @@ function renderCats(){
   const keys=["all"].concat(Object.keys(CATS).filter(k=>k!=="all"&&P.some(p=>p.cat===k)));
   $("cats").innerHTML=keys.map(k=>`<button class="cat" data-k="${k}" aria-pressed="${k===filter}"><span class="ic">${CATS[k].ic}</span><span>${CATS[k].label}</span><small>${k==="all"?P.length:P.filter(p=>p.cat===k).length}</small></button>`).join("");
 }
-$("cats").addEventListener("click",e=>{const b=e.target.closest(".cat");if(!b)return;filter=b.dataset.k;store.set("fm-filter-"+cityKey,filter);selected=null;apply();fit();
-  b.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});});
+$("cats").addEventListener("click",e=>{const b=e.target.closest(".cat");if(!b)return;filter=b.dataset.k;store.set("fm-filter-"+cityKey,filter);selected=null;apply();fit();});
 
 const visible=()=>P.filter(p=>filter==="all"||p.cat===filter).sort((a,b)=>a.d-b.d);
 const gmaps=p=>`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.name)}`+(p.pid?`&query_place_id=${p.pid}`:"");
