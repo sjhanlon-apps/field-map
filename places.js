@@ -496,39 +496,6 @@ window.MAP_DATA = {
     {
      "cat": "massage",
      "group": "Local & cheap",
-     "name": "Ánh Dương blind massage",
-     "lat": 10.7701345,
-     "lng": 106.669995,
-     "pid": "ChIJdyis4d0udTER0RcsFnFlKtA",
-     "rating": "4.3 · 267 reviews",
-     "note": "Classic local blind massage. Unfussy rooms, strong hands. 90 min for under US$10.",
-     "price": "💲💲 60–90 min ~150–250k VND (~A$9–14)"
-    },
-    {
-     "cat": "massage",
-     "group": "Local & cheap",
-     "name": "Hoàng Triều blind massage",
-     "lat": 10.7778988,
-     "lng": 106.6711249,
-     "pid": "ChIJG-XE9BAvdTEREPnSJ3OVnMY",
-     "rating": "4.5 · 120 reviews",
-     "note": "Blind therapists, private rooms, friendly front desk. Locals' spot.",
-     "price": "💲💲 60 min ~150–250k VND (~A$9–14)"
-    },
-    {
-     "cat": "massage",
-     "group": "Local & cheap",
-     "name": "Quốc Phương blind massage",
-     "lat": 10.7890746,
-     "lng": 106.6796975,
-     "pid": "ChIJc7aACaYvdTERBRrm3mRvUqo",
-     "rating": "4.4 · 238 reviews",
-     "note": "Full body with oil or hot stones 220k incl. tip, posted on the menu.",
-     "price": "💲💲 full body 220k VND incl. tip (~A$13)"
-    },
-    {
-     "cat": "massage",
-     "group": "Local & cheap",
      "name": "Lamint Spa Đông Y Q3",
      "lat": 10.778729,
      "lng": 106.6884002,
@@ -536,6 +503,39 @@ window.MAP_DATA = {
      "rating": "4.9 · 299 reviews",
      "note": "Traditional Vietnamese spa in an old house full of plants. Reviewers say best value in the area.",
      "price": "💲💲 60 min ~200–350k VND (~A$11–20)"
+    },
+    {
+     "cat": "massage",
+     "group": "Local & cheap",
+     "name": "Yên Spa · Cao Thắng",
+     "lat": 10.7699219,
+     "lng": 106.682545,
+     "pid": "ChIJuW_StSQvdTER9Xeww_5WaXo",
+     "rating": "4.9 · 404 reviews",
+     "note": "Quiet, calm local spa a few minutes' walk away. Hot stones, combos with hair wash.",
+     "price": "💲💲 60 min ~250–400k VND (~A$14–23)"
+    },
+    {
+     "cat": "massage",
+     "group": "Local & cheap",
+     "name": "NDC Spa",
+     "lat": 10.7674319,
+     "lng": 106.6791255,
+     "pid": "ChIJh1FcT1QvdTER2VeVfJ_2sYI",
+     "rating": "4.9 · 355 reviews",
+     "note": "Cosy wooden homestay spa. Deep tissue gets rave reviews. Closest to Larita.",
+     "price": "💲💲 60 min ~250–400k VND (~A$14–23)"
+    },
+    {
+     "cat": "massage",
+     "group": "Local & cheap",
+     "name": "Win Win Spa Q3",
+     "lat": 10.7793096,
+     "lng": 106.6819883,
+     "pid": "ChIJZVXEUQAvdTERcct0Xh90Oc8",
+     "rating": "4.8 · 680 reviews",
+     "note": "Local crowd, clean, strong professional massage. 90 min with oil 399k.",
+     "price": "💲💲 90 min oil massage 399k VND (~A$23)"
     }
    ],
    "short": "HCMC",
