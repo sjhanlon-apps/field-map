@@ -150,6 +150,7 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
 .mbox ul{margin:0;padding-left:18px}.mbox li{margin:5px 0;font-size:14.5px;line-height:1.4}
 .mbox.key{background:var(--ink);color:var(--bg);border:0}
 .mbox.key li{color:var(--bg)}
+.ctab{width:100%;border-collapse:collapse;font-size:14.5px}.ctab td{padding:6px 0;border-bottom:1px solid var(--line)}.ctab td:last-child{text-align:right;font-weight:700;white-space:nowrap}.ctab .tot td{border:0;font-weight:800;padding-top:10px}.cnote{margin:8px 0 0;color:var(--muted);font-size:13px}
 
 @media (min-width:900px){
   .sheet{left:24px;right:auto;bottom:24px;top:auto;width:420px;border-radius:24px}
@@ -168,7 +169,7 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
     <h1>Where to?</h1>
     <p class="lead">Pick your city. Switch any time from the top bar.</p>
     <div id="cityCards"></div>
-    <button class="citycard moneycard" id="moneyCard"><div class="hero"><span class="fl">💸</span><span class="count">Golden rules</span></div><div class="body"><b>Money</b><span>Cash, cards &amp; ATMs for both countries</span></div></button>
+    <button class="citycard moneycard" id="moneyCard"><div class="hero"><span class="fl">💸</span><span class="count">Golden rules</span></div><div class="body"><b>Money</b><span>Golden rules + trip costs</span></div></button>
   </div>
 </div>
 
@@ -177,6 +178,17 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
     <button class="close-picker" id="closeMoney" aria-label="Close">✕</button>
     <h1>💸 Money</h1>
     <p class="lead">Golden rules. Revolut for everything, CBA only as backup.</p>
+    <div class="mbox" id="costs"><h2>🧾 Trip costs so far</h2>
+      <table class="ctab">
+        <tr><td>🚕 Uber to MEL airport</td><td>A$50</td></tr>
+        <tr><td>🛂 Fast track SGN (Klook)</td><td>A$38.75</td></tr>
+        <tr><td>✈️ VN607 Saigon → Bangkok</td><td>A$195.81</td></tr>
+        <tr><td>💳 Revolut Metal (monthly)</td><td>A$28.99</td></tr>
+        <tr><td>🏧 ATM fee (A$500 cash out, MEL)</td><td>A$4</td></tr>
+        <tr class="tot"><td>Total</td><td>A$317.55</td></tr>
+      </table>
+      <p class="cnote">Cash on hand: A$500 (spending tracked as it goes). Still to add: Jetstar, Larita, e-visa.</p>
+    </div>
     <div class="mbox key"><h2>⚡ The 4 rules</h2><ul>
       <li><b>Tap Revolut</b> everywhere you can.</li>
       <li>Always pick <b>VND / THB</b>, never AUD, at ATMs and card machines.</li>
