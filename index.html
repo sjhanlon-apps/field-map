@@ -150,7 +150,7 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
 .mbox ul{margin:0;padding-left:18px}.mbox li{margin:5px 0;font-size:14.5px;line-height:1.4}
 .mbox.key{background:var(--ink);color:var(--bg);border:0}
 .mbox.key li{color:var(--bg)}
-.ctab{width:100%;border-collapse:collapse;font-size:14.5px}.ctab td{padding:6px 0;border-bottom:1px solid var(--line)}.ctab td:last-child{text-align:right;font-weight:700;white-space:nowrap}.ctab .day{font-weight:800;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:12px}.ctab .tot td{border:0;font-weight:800;padding-top:10px}.cnote{margin:8px 0 0;color:var(--muted);font-size:13px}
+.ctab{width:100%;border-collapse:collapse;font-size:14.5px}.ctab td{padding:6px 0;border-bottom:1px solid var(--line)}.ctab td:last-child{text-align:right;font-weight:700;white-space:nowrap}.ctab i{color:var(--muted);font-style:normal;font-size:12px}.ctab .day{font-weight:800;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:12px}.ctab .tot td{border:0;font-weight:800;padding-top:10px}.cnote{margin:8px 0 0;color:var(--muted);font-size:13px}
 
 @media (min-width:900px){
   .sheet{left:24px;right:auto;bottom:24px;top:auto;width:420px;border-radius:24px}
@@ -180,18 +180,22 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
     <p class="lead">Golden rules. Revolut for everything, CBA only as backup.</p>
     <div class="mbox" id="costs"><h2>🧾 Trip costs so far</h2>
       <table class="ctab">
-        <tr><td>🚕 Uber to MEL airport</td><td>A$50</td></tr>
+        <tr><td colspan="2" class="day">Booked before the trip</td></tr>
         <tr><td>🛂 Fast track SGN (Klook)</td><td>A$38.75</td></tr>
         <tr><td>✈️ VN607 Saigon → Bangkok</td><td>A$195.81</td></tr>
         <tr><td>💳 Revolut Metal (monthly)</td><td>A$28.99</td></tr>
-        <tr><td>🏧 ATM fee (A$500 cash out, MEL)</td><td>A$4</td></tr>
+        <tr><td colspan="2" class="day">Sat 14 Nov · travel day</td></tr>
+        <tr><td>🚕 Uber home → MEL airport <i>(biz card)</i></td><td>A$50</td></tr>
+        <tr><td>🏧 ATM fee (A$500 cash out)</td><td>A$4</td></tr>
+        <tr><td>🥪 Food + drink at MEL / on plane <i>(biz card)</i></td><td>A$20</td></tr>
+        <tr><td>🚕 Grab SGN → Larita</td><td>TBC</td></tr>
         <tr><td colspan="2" class="day">Sun 15 Nov</td></tr>
         <tr><td>☕ Coffee with LJ</td><td>A$9</td></tr>
         <tr><td>🍜 Lunch for 3</td><td>A$15</td></tr>
         <tr><td>💆 Massage (800k VND total)</td><td>A$46.18</td></tr>
         <tr><td>🏨 Larita room payment (2.5M VND cash)</td><td>A$144.32</td></tr>
         <tr><td>🚕 Grabs today</td><td>TBC</td></tr>
-        <tr class="tot"><td>Total</td><td>A$532.05</td></tr>
+        <tr class="tot"><td>Total</td><td>A$552.05</td></tr>
       </table>
       <p class="cnote">VND at ~17,323 per A$1. Still to add: Grabs (from Revolut), Jetstar, Larita deposit, e-visa.</p>
     </div>
