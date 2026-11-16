@@ -150,7 +150,7 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
 .mbox ul{margin:0;padding-left:18px}.mbox li{margin:5px 0;font-size:14.5px;line-height:1.4}
 .mbox.key{background:var(--ink);color:var(--bg);border:0}
 .mbox.key li{color:var(--bg)}
-.ctab{width:100%;border-collapse:collapse;font-size:14.5px}.ctab td{padding:6px 0;border-bottom:1px solid var(--line)}.ctab td:last-child{text-align:right;font-weight:700;white-space:nowrap}.ctab i{color:var(--muted);font-style:normal;font-size:12px}.ctab .day{font-weight:800;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:12px}.ctab .tot td{border:0;font-weight:800;padding-top:10px}.cnote{margin:8px 0 0;color:var(--muted);font-size:13px}
+.ctab{width:100%;border-collapse:collapse;font-size:14.5px}.ctab td{padding:6px 0;border-bottom:1px solid var(--line)}.ctab td:last-child{text-align:right;font-weight:700;white-space:nowrap}.ctab i{color:var(--muted);font-style:normal;font-size:12px}.ctab .day{font-weight:800;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:12px}.ctab .tot td{border:0;font-weight:800;padding-top:10px}.ctot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 12px}.ctot div{background:rgba(127,127,127,.12);border-radius:12px;padding:10px 8px;text-align:center}.ctot span{display:block;font-size:11px;color:var(--muted)}.ctot b{font-size:16px}.csub{font-size:14px;margin:16px 0 4px}.cnote{margin:8px 0 0;color:var(--muted);font-size:13px}
 
 @media (min-width:900px){
   .sheet{left:24px;right:auto;bottom:24px;top:auto;width:420px;border-radius:24px}
@@ -178,36 +178,71 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
     <button class="close-picker" id="closeMoney" aria-label="Close">✕</button>
     <h1>💸 Money</h1>
     <p class="lead">Golden rules. Revolut for everything, CBA only as backup.</p>
-    <div class="mbox" id="costs"><h2>🧾 Trip costs so far</h2>
-      <table class="ctab">
-        <tr><td colspan="2" class="day">Booked before the trip</td></tr>
-        <tr><td>🛂 Fast track SGN (Klook)</td><td>A$38.75</td></tr>
-        <tr><td>✈️ VN607 Saigon → Bangkok</td><td>A$195.81</td></tr>
-        <tr><td>💳 Revolut Metal (monthly)</td><td>A$28.99</td></tr>
-        <tr><td colspan="2" class="day">Sat 14 Nov · travel day</td></tr>
-        <tr><td>🚕 Uber home → MEL airport <i>(biz card)</i></td><td>A$50</td></tr>
-        <tr><td>🏧 ATM fee (A$500 cash out)</td><td>A$4</td></tr>
-        <tr><td>🥪 Food + drink at MEL / on plane <i>(biz card)</i></td><td>A$20</td></tr>
-        <tr><td>🚕 Grabs (SGN → Larita + 1)</td><td>A$9.56</td></tr>
-        <tr><td colspan="2" class="day">Sun 15 Nov</td></tr>
-        <tr><td>☕ Starbucks with LJ</td><td>A$9.24</td></tr>
-        <tr><td>🍜 Lunch for 3 (Saigon Cà Phê)</td><td>A$14.34</td></tr>
-        <tr><td>💆 Massage (800k VND total)</td><td>A$46.18</td></tr>
-        <tr><td>🏨 Larita room payment (2.5M VND cash)</td><td>A$144.32</td></tr>
-        <tr><td>🚕 Grabs × 6</td><td>A$24.00</td></tr>
-        <tr><td>🍚 Street cơm tấm dinner (60k VND cash)</td><td>A$3.46</td></tr>
-        <tr><td>💧 6 Pocari + 6 water (King Food Market)</td><td>A$7.99</td></tr>
-        <tr><td colspan="2" class="day">Mon 16 Nov</td></tr>
-        <tr><td>🚕 Grab</td><td>A$1.99</td></tr>
-        <tr><td>☕ Coffee, Hôtel des Arts pool (170k VND)</td><td>A$9.83</td></tr>
-        <tr><td>🥖 Bánh mì ốp la, Bánh Mì 362 (55k VND)</td><td>A$3.18</td></tr>
-        <tr><td>🥤 3 protein shakes (130k VND)</td><td>A$7.50</td></tr>
-        <tr><td>🍌 4 bananas</td><td>~A$1</td></tr>
-        <tr><td>🍚 Dinner, 2× cơm tấm (100k VND)</td><td>A$5.77</td></tr>
-        <tr class="tot"><td>Total</td><td>A$625.91</td></tr>
-      </table>
-      <p class="cnote">VND at ~17,323 per A$1. Still to add: Grabs (from Revolut), Jetstar, Larita deposit, e-visa.</p>
+    <div class="mbox" id="costs"><h2>🧾 Trip money</h2>
+      <div class="ctot">
+        <div><span>Spent (used up)</span><b id="tSpent">–</b></div>
+        <div><span>Prepaid (future)</span><b id="tPre">–</b></div>
+        <div><span>Still owing</span><b id="tOwe">–</b></div>
+      </div>
+      <table class="ctab" id="spentTab"></table>
+      <h3 class="csub">⏳ Prepaid, not used yet</h3>
+      <table class="ctab" id="preTab"></table>
+      <h3 class="csub">💸 Still to pay</h3>
+      <table class="ctab" id="oweTab"></table>
+      <p class="cnote" id="cNote"></p>
     </div>
+<script>
+(function(){
+  // ---- edit here ----
+  var STAY={name:"Larita Saigon",checkin:"2026-11-14",nights:13,paid:209.32,total:392.60}; // deposit A$65 + 2.5M VND; owing 3.175M VND
+  var SPENT=[
+    ["Before trip","🛂 Fast track SGN (Klook)",38.75],
+    ["Before trip","💳 Revolut Metal (monthly)",28.99],
+    ["Sat 14 Nov","🚕 Uber home → MEL airport (biz card)",50],
+    ["Sat 14 Nov","🏧 ATM fee (A$500 cash out)",4],
+    ["Sat 14 Nov","🥪 Food + drink, MEL / plane (biz card)",20],
+    ["Sat 14 Nov","🚕 Grabs × 2 (SGN → Larita)",9.56],
+    ["Sun 15 Nov","☕ Starbucks with LJ",9.24],
+    ["Sun 15 Nov","🍜 Lunch for 3 (Saigon Cà Phê)",14.34],
+    ["Sun 15 Nov","💆 Massage (800k VND)",46.18],
+    ["Sun 15 Nov","🚕 Grabs × 6",24.00],
+    ["Sun 15 Nov","🍚 Street cơm tấm (60k VND)",3.46],
+    ["Sun 15 Nov","💧 6 Pocari + 6 water",7.99],
+    ["Mon 16 Nov","🚕 Grab",1.99],
+    ["Mon 16 Nov","☕ Coffee, Hôtel des Arts (170k VND)",9.83],
+    ["Mon 16 Nov","🥖 Bánh mì ốp la (55k VND)",3.18],
+    ["Mon 16 Nov","🥤 3 protein shakes (130k VND)",7.50],
+    ["Mon 16 Nov","🍌 4 bananas",1],
+    ["Mon 16 Nov","🍚 2× cơm tấm dinner (100k VND)",5.77]
+  ];
+  var PREPAID=[["✈️ VN607 Saigon → Bangkok, Mon 30 Nov",195.81,"2026-11-30"]];
+  var MISSING="Jetstar MEL → SGN fare, Vietnam e-visa";
+  // -------------------
+  function f(n){return "A$"+n.toFixed(2)}
+  function today(){var d=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Ho_Chi_Minh"}));return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+  var t=today(), ci=new Date(STAY.checkin+"T00:00:00");
+  var used=Math.max(0,Math.min(STAY.nights,Math.round((t-ci)/864e5)));
+  var rate=STAY.total/STAY.nights, stayUsed=used*rate;
+  var rows="",last="",spent=0;
+  SPENT.forEach(function(r){if(r[0]!==last){rows+='<tr><td colspan="2" class="day">'+r[0]+'</td></tr>';last=r[0]}rows+='<tr><td>'+r[1]+'</td><td>'+f(r[2])+'</td></tr>';spent+=r[2]});
+  rows+='<tr><td colspan="2" class="day">Accommodation</td></tr><tr><td>🏨 '+STAY.name+' · '+used+' of '+STAY.nights+' nights slept (~'+f(rate)+'/night)</td><td>'+f(stayUsed)+'</td></tr>';
+  spent+=stayUsed;
+  rows+='<tr class="tot"><td>Spent</td><td>'+f(spent)+'</td></tr>';
+  document.getElementById("spentTab").innerHTML=rows;
+  var pre=0,pr="";
+  PREPAID.forEach(function(p){if(t<new Date(p[2]+"T00:00:00")){pr+='<tr><td>'+p[0]+'</td><td>'+f(p[1])+'</td></tr>';pre+=p[1]}else{spent+=0}});
+  var stayPre=Math.max(0,STAY.paid-stayUsed);
+  if(stayPre>0.005){pr+='<tr><td>🏨 '+STAY.name+', paid ahead for future nights</td><td>'+f(stayPre)+'</td></tr>';pre+=stayPre}
+  pr+='<tr class="tot"><td>Prepaid</td><td>'+f(pre)+'</td></tr>';
+  document.getElementById("preTab").innerHTML=pr;
+  var owe=Math.max(0,STAY.total-STAY.paid);
+  document.getElementById("oweTab").innerHTML='<tr><td>🏨 '+STAY.name+' balance (3.175M VND)</td><td>'+f(owe)+'</td></tr>';
+  document.getElementById("tSpent").textContent=f(spent);
+  document.getElementById("tPre").textContent=f(pre);
+  document.getElementById("tOwe").textContent=f(owe);
+  document.getElementById("cNote").textContent="Larita adds a night each morning automatically. VND at ~17,323 per A$1. Not yet added: "+MISSING+".";
+})();
+</script>
     <div class="mbox key"><h2>⚡ The 4 rules</h2><ul>
       <li><b>Tap Revolut</b> everywhere you can.</li>
       <li>Always pick <b>VND / THB</b>, never AUD, at ATMs and card machines.</li>
