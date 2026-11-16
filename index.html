@@ -150,7 +150,7 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
 .mbox ul{margin:0;padding-left:18px}.mbox li{margin:5px 0;font-size:14.5px;line-height:1.4}
 .mbox.key{background:var(--ink);color:var(--bg);border:0}
 .mbox.key li{color:var(--bg)}
-.ctab{width:100%;border-collapse:collapse;font-size:14.5px}.ctab td{padding:6px 0;border-bottom:1px solid var(--line)}.ctab td:last-child{text-align:right;font-weight:700;white-space:nowrap}.ctab i{color:var(--muted);font-style:normal;font-size:12px}.ctab .day{text-align:left!important;font-weight:800;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:12px}.ctab .tot td{border:0;font-weight:800;padding-top:10px}.ctot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 12px}.ctot div{background:rgba(127,127,127,.12);border-radius:12px;padding:10px 8px;text-align:center}.ctot span{display:block;font-size:11px;color:var(--muted)}.ctot b{font-size:16px}.csub{font-size:14px;margin:16px 0 4px}.cnote{margin:8px 0 0;color:var(--muted);font-size:13px}
+.ctab{width:100%;border-collapse:collapse;font-size:14.5px}.ctab td{padding:6px 0;border-bottom:1px solid var(--line)}.ctab td:last-child{text-align:right;font-weight:700;white-space:nowrap}.ctab i{color:var(--muted);font-style:normal;font-size:12px}.ctab .day{text-align:left!important;font-weight:800;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:12px}.ctab .tot td{border:0;font-weight:800;padding-top:10px}.ctot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 12px}.ctot div{background:rgba(127,127,127,.12);border-radius:12px;padding:10px 8px;text-align:center}.ctot span{display:block;font-size:11px;color:var(--muted)}.ctot b{font-size:16px}.cbar{margin:0 0 10px}.cl{display:flex;justify-content:space-between;font-size:14px}.ct{height:8px;border-radius:6px;background:rgba(127,127,127,.15);margin-top:4px;overflow:hidden}.ct i{display:block;height:100%;background:var(--accent);border-radius:6px}.csub{font-size:14px;margin:16px 0 4px}.cnote{margin:8px 0 0;color:var(--muted);font-size:13px}
 
 @media (min-width:900px){
   .sheet{left:24px;right:auto;bottom:24px;top:auto;width:420px;border-radius:24px}
@@ -184,6 +184,7 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
         <div><span>Prepaid (future)</span><b id="tPre">–</b></div>
         <div><span>Still owing</span><b id="tOwe">–</b></div>
       </div>
+      <div id="catBars"></div>
       <table class="ctab" id="spentTab"></table>
       <h3 class="csub">⏳ Prepaid, not used yet</h3>
       <table class="ctab" id="preTab"></table>
@@ -196,38 +197,47 @@ body.sheet-max .fabs{opacity:0;pointer-events:none}
   // ---- edit here ----
   var STAY={name:"Larita Saigon",checkin:"2026-11-14",nights:13,paid:209.32,total:392.60}; // deposit A$65 + 2.5M VND; owing 3.175M VND
   var SPENT=[
-    ["Before trip","🛂 Fast track SGN (Klook)",38.75],
-    ["Before trip","💳 Revolut Metal (monthly)",28.99],
-    ["Sat 14 Nov","🚕 Uber home → MEL airport (biz card)",50],
-    ["Sat 14 Nov","🏧 ATM fee (A$500 cash out)",4],
-    ["Sat 14 Nov","🥪 Food + drink, MEL / plane (biz card)",20],
-    ["Sat 14 Nov","🚕 Grabs × 2 (SGN → Larita)",9.56],
-    ["Sun 15 Nov","☕ Starbucks with LJ",9.24],
-    ["Sun 15 Nov","🍜 Lunch for 3 (Saigon Cà Phê)",14.34],
-    ["Sun 15 Nov","💆 Massage (800k VND)",46.18],
-    ["Sun 15 Nov","🚕 Grabs × 6",24.00],
-    ["Sun 15 Nov","🍚 Street cơm tấm (60k VND)",3.46],
-    ["Sun 15 Nov","💧 6 Pocari + 6 water",7.99],
-    ["Mon 16 Nov","🚕 Grab",1.99],
-    ["Mon 16 Nov","☕ Coffee, Hôtel des Arts (170k VND)",9.83],
-    ["Mon 16 Nov","🥖 Bánh mì ốp la (55k VND)",3.18],
-    ["Mon 16 Nov","🥤 3 protein shakes (130k VND)",7.50],
-    ["Mon 16 Nov","🍌 4 bananas",1],
-    ["Mon 16 Nov","🍚 2× cơm tấm dinner (100k VND)",5.77]
+    ["Sat 14 Nov","✈️ Jetstar MEL → SGN (fare TBC)",0,"T"],
+    ["Before trip","🛂 Vietnam e-visa (TBC)",0,"T"],
+    ["Before trip","🛂 Fast track SGN (Klook)",38.75,"T"],
+    ["Before trip","💳 Revolut Metal (monthly)",28.99,"O"],
+    ["Sat 14 Nov","🚕 Uber home → MEL airport (biz card)",50,"T"],
+    ["Sat 14 Nov","🏧 ATM fee (A$500 cash out)",4,"O"],
+    ["Sat 14 Nov","🥪 Food + drink, MEL / plane (biz card)",20,"F"],
+    ["Sat 14 Nov","🚕 Grabs × 2 (SGN → Larita)",9.56,"T"],
+    ["Sun 15 Nov","☕ Starbucks with LJ",9.24,"F"],
+    ["Sun 15 Nov","🍜 Lunch for 3 (Saigon Cà Phê)",14.34,"F"],
+    ["Sun 15 Nov","💆 Massage (800k VND)",46.18,"O"],
+    ["Sun 15 Nov","🚕 Grabs × 6",24.00,"T"],
+    ["Sun 15 Nov","🍚 Street cơm tấm (60k VND)",3.46,"F"],
+    ["Sun 15 Nov","💧 6 Pocari + 6 water",7.99,"F"],
+    ["Mon 16 Nov","🚕 Grab",1.99,"T"],
+    ["Mon 16 Nov","☕ Coffee, Hôtel des Arts (170k VND)",9.83,"F"],
+    ["Mon 16 Nov","🥖 Bánh mì ốp la (55k VND)",3.18,"F"],
+    ["Mon 16 Nov","🥤 3 protein shakes (130k VND)",7.50,"F"],
+    ["Mon 16 Nov","🍌 4 bananas",1,"F"],
+    ["Mon 16 Nov","🍚 2× cơm tấm dinner (100k VND)",5.77,"F"],
   ];
   var PREPAID=[["✈️ VN607 Saigon → Bangkok, Mon 30 Nov",195.81,"2026-11-30"]];
-  var MISSING="Jetstar MEL → SGN fare, Vietnam e-visa";
+  var MISSING="Jetstar fare, e-visa, today\u2019s Revolut screenshot";
   // -------------------
   function f(n){return "A$"+n.toFixed(2)}
+  function order(d){return d==="Before trip"?0:parseInt(d.split(" ")[1])}
+  function lbl(r){return r[2]===0?"TBC":f(r[2])}
   function today(){var d=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Ho_Chi_Minh"}));return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
   var t=today(), ci=new Date(STAY.checkin+"T00:00:00");
   var used=Math.max(0,Math.min(STAY.nights,Math.round((t-ci)/864e5)));
   var rate=STAY.total/STAY.nights, stayUsed=used*rate;
   var rows="",last="",spent=0;
-  SPENT.forEach(function(r){if(r[0]!==last){rows+='<tr><td colspan="2" class="day">'+r[0]+'</td></tr>';last=r[0]}rows+='<tr><td>'+r[1]+'</td><td>'+f(r[2])+'</td></tr>';spent+=r[2]});
+  SPENT.slice().sort(function(a,b){return order(a[0])-order(b[0])}).forEach(function(r){if(r[0]!==last){rows+='<tr><td colspan="2" class="day">'+r[0]+'</td></tr>';last=r[0]}rows+='<tr><td>'+r[1]+'</td><td>'+lbl(r)+'</td></tr>';spent+=r[2]});
   rows+='<tr><td colspan="2" class="day">Accommodation</td></tr><tr><td>🏨 '+STAY.name+' · '+used+' of '+STAY.nights+' nights slept (~'+f(rate)+'/night)</td><td>'+f(stayUsed)+'</td></tr>';
   spent+=stayUsed;
   rows+='<tr class="tot"><td>Spent</td><td>'+f(spent)+'</td></tr>';
+  var C={T:["🚕 Transport",0],A:["🏨 Accommodation",stayUsed],F:["🍜 Food & drink",0],O:["✨ Other",0]};
+  SPENT.forEach(function(r){C[r[3]][1]+=r[2]});
+  var mx=Math.max(C.T[1],C.A[1],C.F[1],C.O[1])||1,cb="";
+  ["T","A","F","O"].forEach(function(k){cb+='<div class="cbar"><div class="cl"><span>'+C[k][0]+'</span><b>'+f(C[k][1])+'</b></div><div class="ct"><i style="width:'+(C[k][1]/mx*100).toFixed(1)+'%"></i></div></div>'});
+  document.getElementById("catBars").innerHTML=cb;
   document.getElementById("spentTab").innerHTML=rows;
   var pre=0,pr="";
   PREPAID.forEach(function(p){if(t<new Date(p[2]+"T00:00:00")){pr+='<tr><td>'+p[0]+'</td><td>'+f(p[1])+'</td></tr>';pre+=p[1]}else{spent+=0}});
